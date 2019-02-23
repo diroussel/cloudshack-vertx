@@ -8,7 +8,9 @@ public class MainVerticle extends AbstractVerticle {
   public void start() {
     vertx.createHttpServer()
         .requestHandler(req -> req.response().end("Hello Vert.x!"))
-        .listen(8080);
+      .listen(
+        Integer.parseInt(System.getenv().getOrDefault("PORT", "8080")),
+        System.getProperty("http.address", "0.0.0.0"));
   }
 
 }
