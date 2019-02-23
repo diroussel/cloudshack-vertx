@@ -1,19 +1,23 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+val vertxVersion = "3.6.3"
+val junitVersion = "5.3.2"
+
 plugins {
   java
   application
+  kotlin("jvm") version "1.3.20"
   id("com.github.johnrengelman.shadow") version "4.0.3"
+  `build-scan`
 }
 
 repositories {
   mavenCentral()
 }
 
-val vertxVersion = "3.6.3"
-val junitVersion = "5.3.2"
 
 dependencies {
+  compile(kotlin("stdlib"))
   implementation("io.vertx:vertx-core:$vertxVersion")
 
   testImplementation("io.vertx:vertx-junit5:$vertxVersion")
@@ -52,4 +56,9 @@ tasks {
       include("META-INF/services/io.vertx.core.spi.VerticleFactory")
     }
   }
+}
+
+buildScan {
+  termsOfServiceUrl = "https://gradle.com/terms-of-service"
+  termsOfServiceAgree = "yes"
 }
